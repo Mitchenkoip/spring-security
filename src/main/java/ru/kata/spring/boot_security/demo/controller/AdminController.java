@@ -39,8 +39,9 @@ public class AdminController {
 
     @PostMapping
     public String create(@ModelAttribute("user") @Valid User user,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("roles", roleService.findAll());
             return "new_user";
         }
         userService.save(user);

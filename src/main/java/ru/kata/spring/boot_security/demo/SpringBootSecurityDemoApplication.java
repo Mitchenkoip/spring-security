@@ -19,26 +19,4 @@ public class SpringBootSecurityDemoApplication {
 		SpringApplication.run(SpringBootSecurityDemoApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner init(UserRepository userRepository,
-						   RoleRepository roleRepository,
-						   PasswordEncoder passwordEncoder) {
-		return args -> {
-
-			Role adminRole = new Role(null, "ROLE_ADMIN");
-			Role userRole = new Role(null, "ROLE_USER");
-
-			roleRepository.save(adminRole);
-			roleRepository.save(userRole);
-
-			User admin = new User();
-			admin.setName("admin");
-			admin.setEmail("admin@mail.com");
-			admin.setPassword(passwordEncoder.encode("123"));
-
-			admin.setRoles(Set.of(adminRole));
-
-			userRepository.save(admin);
-		};
-	}
 }
